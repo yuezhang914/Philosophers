@@ -6,7 +6,7 @@
 /*   By: yzhang2 <yzhang2@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/16 00:11:25 by yzhang2           #+#    #+#             */
-/*   Updated: 2026/01/30 15:40:45 by yzhang2          ###   ########.fr       */
+/*   Updated: 2026/01/30 16:18:16 by yzhang2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ static void	eat_once(t_philo *p)
 	pthread_mutex_unlock(sec);
 	pthread_mutex_unlock(first);
 }
+
 /* 哲学家线程：不断吃、睡、想，直到 stop */
 void	*philo_thread(void *arg)
 {

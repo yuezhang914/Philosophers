@@ -6,13 +6,13 @@
 /*   By: yzhang2 <yzhang2@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/16 00:00:00 by yzhang2           #+#    #+#             */
-/*   Updated: 2025/12/16 00:09:08 by yzhang2          ###   ########.fr       */
+/*   Updated: 2026/01/30 16:24:38 by yzhang2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-/* 这个函数负责：分配内存 + 初始化锁 + 初始化每个哲学家的数据 */
+/* 分配内存 + 初始化锁 + 初始化每个哲学家的数据 */
 static int	sim_build(t_sim *sim, t_philo **ph, pthread_t **th)
 {
 	sim->forks = malloc(sizeof(*sim->forks) * sim->count);
@@ -31,7 +31,7 @@ static int	sim_build(t_sim *sim, t_philo **ph, pthread_t **th)
 	return (0);
 }
 
-/* 这个函数负责：启动哲学家线程 + 启动监控线程 */
+/* 启动哲学家线程 + 启动监控线程 */
 static int	sim_start(t_sim *sim, t_philo *ph, pthread_t *th, pthread_t *watch)
 {
 	if (start_philos(sim, ph, th) != 0)
@@ -45,7 +45,7 @@ static int	sim_start(t_sim *sim, t_philo *ph, pthread_t *th, pthread_t *watch)
 	return (0);
 }
 
-/* 这个函数负责：等待线程结束 + 清理所有资源 */
+/* 等待线程结束 + 清理所有资源 */
 static void	sim_finish(t_sim *sim, t_philo *ph, pthread_t *th, pthread_t watch)
 {
 	pthread_join(watch, NULL);
