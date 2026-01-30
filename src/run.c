@@ -6,7 +6,7 @@
 /*   By: yzhang2 <yzhang2@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/16 00:11:25 by yzhang2           #+#    #+#             */
-/*   Updated: 2026/01/30 11:24:57 by yzhang2          ###   ########.fr       */
+/*   Updated: 2026/01/30 15:40:45 by yzhang2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ static void	eat_once(t_philo *p)
 	pthread_mutex_unlock(sec);
 	pthread_mutex_unlock(first);
 }
-
 /* 哲学家线程：不断吃、睡、想，直到 stop */
 void	*philo_thread(void *arg)
 {
@@ -67,15 +66,17 @@ void	*philo_thread(void *arg)
 	sim = p->sim;
 	if ((p->id % 2) == 0)
 		usleep(500);
-	while (!stop_get(sim))
+	while (!stop_get(sim) && !philo_done(p))
 	{
 		eat_once(p);
-		if (stop_get(sim))
+		if (stop_get(sim) || philo_done(p))
 			break ;
 		log_msg(sim, p->id, "is sleeping", 0);
 		wait_until_stop(sim, sim->sleep_ms);
+		if (stop_get(sim) || philo_done(p))
+			break ;
 		log_msg(sim, p->id, "is thinking", 0);
-		usleep(200);
+		wait_until_stop(sim, think_ms(sim));
 	}
 	return (NULL);
 }

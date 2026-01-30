@@ -6,7 +6,7 @@
 /*   By: yzhang2 <yzhang2@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/16 00:11:06 by yzhang2           #+#    #+#             */
-/*   Updated: 2025/12/16 01:07:05 by yzhang2          ###   ########.fr       */
+/*   Updated: 2026/01/30 15:39:27 by yzhang2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,4 +47,19 @@ void	log_msg(t_sim *sim, int id, const char *msg, int force)
 	printf("%ld %d %s\n", ts, id, msg);
 	pthread_mutex_unlock(&sim->print_lock);
 	pthread_mutex_unlock(&sim->state_lock);
+}
+
+/* 判断某个哲学家是否已经吃够 must_eat 次 */
+int	philo_done(t_philo *p)
+{
+	int	target;
+	int	done;
+
+	target = p->sim->must_eat;
+	if (target <= 0)
+		return (0);
+	pthread_mutex_lock(&p->meal_lock);
+	done = (p->meals >= target);
+	pthread_mutex_unlock(&p->meal_lock);
+	return (done);
 }

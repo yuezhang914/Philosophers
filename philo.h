@@ -6,7 +6,7 @@
 /*   By: yzhang2 <yzhang2@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/16 00:00:00 by yzhang2           #+#    #+#             */
-/*   Updated: 2026/01/30 11:24:57 by yzhang2          ###   ########.fr       */
+/*   Updated: 2026/01/30 15:39:07 by yzhang2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,12 +59,13 @@ int					sim_init_mutex(t_sim *sim);
 int					sim_init_philo(t_sim *sim, t_philo *ph);
 
 long				time_ms(void);
-
+long				think_ms(t_sim *sim);
 void				wait_until_stop(t_sim *sim, long ms);
 
 int					stop_get(t_sim *sim);
 void				stop_set(t_sim *sim);
 void				log_msg(t_sim *sim, int id, const char *msg, int force);
+int					philo_done(t_philo *p);
 
 void				*philo_thread(void *arg);
 int					start_philos(t_sim *sim, t_philo *ph, pthread_t *th);
