@@ -6,7 +6,7 @@
 /*   By: yzhang2 <yzhang2@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/16 00:11:25 by yzhang2           #+#    #+#             */
-/*   Updated: 2026/01/17 19:38:06 by yzhang2          ###   ########.fr       */
+/*   Updated: 2026/01/30 11:24:57 by yzhang2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static void	pick_order(t_philo *p, pthread_mutex_t **first,
  * 1) 决定拿叉顺序
  * 2) lock 第一把叉 -> 打印拿叉
  * 3) 若只有 1 个哲学家：永远拿不到第二把叉
- *    - 让他一直等到 die_ms（用 sleep_ms_stop）
+ *    - 让他一直等到 die_ms（用 wait_until_stop）
  *    - 然后释放第一把叉并返回
  * 4) lock 第二把叉 -> 打印拿叉
  * 5) 更新 last_meal/meals（必须 meal_lock 保护）
@@ -83,7 +83,7 @@ static void	eat_once(t_philo *p)
 	 */
 	if (sim->count == 1)
 	{
-		sleep_ms_stop(sim, sim->die_ms);
+		wait_until_stop(sim, sim->die_ms);
 		pthread_mutex_unlock(first);
 		return ;
 	}
@@ -102,7 +102,7 @@ static void	eat_once(t_philo *p)
 
 	/* 打印并睡一段时间表示正在吃 */
 	log_msg(sim, p->id, "is eating", 0);
-	sleep_ms_stop(sim, sim->eat_ms);
+	wait_until_stop(sim, sim->eat_ms);
 
 	/* 放下叉子：顺序一般无所谓，但必须都 unlock */
 	pthread_mutex_unlock(sec);
@@ -144,7 +144,7 @@ void	*philo_thread(void *arg)
 
 		/* 睡觉 */
 		log_msg(sim, p->id, "is sleeping", 0);
-		sleep_ms_stop(sim, sim->sleep_ms);
+		wait_until_stop(sim, sim->sleep_ms);
 
 		/* 思考 */
 		log_msg(sim, p->id, "is thinking", 0);

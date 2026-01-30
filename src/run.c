@@ -6,7 +6,7 @@
 /*   By: yzhang2 <yzhang2@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/16 00:11:25 by yzhang2           #+#    #+#             */
-/*   Updated: 2025/12/16 00:12:43 by yzhang2          ###   ########.fr       */
+/*   Updated: 2026/01/30 11:24:57 by yzhang2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static void	eat_once(t_philo *p)
 	log_msg(sim, p->id, "has taken a fork", 0);
 	if (sim->count == 1)
 	{
-		sleep_ms_stop(sim, sim->die_ms);
+		wait_until_stop(sim, sim->die_ms);
 		pthread_mutex_unlock(first);
 		return ;
 	}
@@ -52,7 +52,7 @@ static void	eat_once(t_philo *p)
 	p->meals += 1;
 	pthread_mutex_unlock(&p->meal_lock);
 	log_msg(sim, p->id, "is eating", 0);
-	sleep_ms_stop(sim, sim->eat_ms);
+	wait_until_stop(sim, sim->eat_ms);
 	pthread_mutex_unlock(sec);
 	pthread_mutex_unlock(first);
 }
@@ -73,7 +73,7 @@ void	*philo_thread(void *arg)
 		if (stop_get(sim))
 			break ;
 		log_msg(sim, p->id, "is sleeping", 0);
-		sleep_ms_stop(sim, sim->sleep_ms);
+		wait_until_stop(sim, sim->sleep_ms);
 		log_msg(sim, p->id, "is thinking", 0);
 		usleep(200);
 	}

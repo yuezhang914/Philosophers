@@ -6,7 +6,7 @@
 /*   By: yzhang2 <yzhang2@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/16 00:10:44 by yzhang2           #+#    #+#             */
-/*   Updated: 2026/01/17 19:37:56 by yzhang2          ###   ########.fr       */
+/*   Updated: 2026/01/30 11:24:57 by yzhang2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,25 +31,7 @@ long	time_ms(void)
 }
 
 /* =========================
- * sleep_ms
- * 作用：睡眠 ms 毫秒（尽量接近）
- * 实现：
- * - 不直接 usleep(ms*1000) 是因为 usleep 精度和调度可能不稳定
- * - 用循环反复短 usleep(250微秒) 去逼近目标时间
- *
- * 参数：ms - 要睡的毫秒数
- * ========================= */
-void	sleep_ms(long ms)
-{
-	long	start;
-
-	start = time_ms();
-	while (time_ms() - start < ms)
-		usleep(250);
-}
-
-/* =========================
- * sleep_ms_stop
+ * wait_until_stop
  * 作用：可以被 stop 信号打断的睡眠
  * 为什么需要：
  * - 如果模拟已经结束（stop=1），线程不该傻等睡满 sleep_ms/eat_ms
@@ -59,7 +41,7 @@ void	sleep_ms(long ms)
  * - sim：用来随时 stop_get
  * - ms：要睡的毫秒数
  * ========================= */
-void	sleep_ms_stop(t_sim *sim, long ms)
+void	wait_until_stop(t_sim *sim, long ms)
 {
 	long	start;
 

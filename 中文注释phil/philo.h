@@ -6,7 +6,7 @@
 /*   By: yzhang2 <yzhang2@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/16 00:00:00 by yzhang2           #+#    #+#             */
-/*   Updated: 2026/01/17 19:36:38 by yzhang2          ###   ########.fr       */
+/*   Updated: 2026/01/30 11:24:57 by yzhang2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,8 +148,7 @@ int					sim_init_philo(t_sim *sim, t_philo *ph);
 
 /* ===== 时间工具 ===== */
 long				time_ms(void);
-void				sleep_ms(long ms);
-void				sleep_ms_stop(t_sim *sim, long ms);
+void				wait_until_stop(t_sim *sim, long ms);
 
 /* ===== 共享状态（stop + 打印） ===== */
 int					stop_get(t_sim *sim);
