@@ -6,7 +6,7 @@
 /*   By: yzhang2 <yzhang2@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/16 00:11:25 by yzhang2           #+#    #+#             */
-/*   Updated: 2026/01/30 16:18:16 by yzhang2          ###   ########.fr       */
+/*   Updated: 2026/01/30 19:04:09 by yzhang2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void	*philo_thread(void *arg)
 	while (!stop_get(sim) && !philo_done(p))
 	{
 		eat_once(p);
-		if (stop_get(sim) || philo_done(p))
+		if (sim->count == 1 || stop_get(sim) || philo_done(p))
 			break ;
 		log_msg(sim, p->id, "is sleeping", 0);
 		wait_until_stop(sim, sim->sleep_ms);
